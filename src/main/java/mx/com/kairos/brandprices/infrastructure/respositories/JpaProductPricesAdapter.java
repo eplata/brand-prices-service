@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import mx.com.kairos.brandprices.domain.model.Price4Brand;
 import mx.com.kairos.brandprices.domain.port.out.ProductPricesRepositoryPort;
 import mx.com.kairos.brandprices.infrastructure.entities.Prices;
-import mx.com.kairos.brandprices.infrastructure.mapper.ProductPriceMapper;
+import static mx.com.kairos.brandprices.infrastructure.mapper.ProductPriceMapper.INSTANCE;
 
 @Component
 @AllArgsConstructor
@@ -23,7 +23,7 @@ public class JpaProductPricesAdapter implements ProductPricesRepositoryPort{
 		Optional<Prices> productPriceEntity = jpaProductPrices4BrandRepository.findByProductIdBrandIdAndDate(productId, brandId, applicableDate); 
 		
 		if(productPriceEntity.isPresent()) {			
-			return Optional.of(ProductPriceMapper.INSTANCE.toDomain(productPriceEntity.get()));
+			return Optional.of(INSTANCE.toDomain(productPriceEntity.get()));
 		}
 		
 		return Optional.empty();
